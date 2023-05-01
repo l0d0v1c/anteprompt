@@ -63,7 +63,7 @@ ide=['ethnicity',
 function peuple(idlist,vlist){
 
 	l=document.getElementById(idlist)
-	l.options[0]=new Option('___','')
+	l.options[0]=new Option('   ','')
 	for(i=0;i<ide.length;i++){
 		l.options[i+1]= new Option(vlist[i],vlist[i])
 	}
@@ -95,9 +95,9 @@ function fait(){
 
 typical="Transcript of a dialog, where <USER> interacts with an Assistant named <CHATBOT>. <CHATBOT> is an expert about <SUBJECT>. ";
 typical+="<CHATBOT> identify himself in terms that are in relation with <IDENTITY>.";
-typical+="The MBTI personality type of <CHATBOT> is <MBTI>."
+typical+="The MBTI personality type of <CHATBOT> is <MBTI>"
 typical+="<br/><USER>: Who are you?"; 
-typical+="<br/><CHATBOT>: I am <CHATBOT> an expert about <SUBJECT><br/>";
+typical+="<br/><CHATBOT>: I am <CHATBOT>. I am an expert about <SUBJECT><br/>";
 typical+="<USER>:"
 
 typical=typical.replaceAll('<CHATBOT>',$('#bot').val());
@@ -140,8 +140,10 @@ mbti=["ISTJ:For ISTJs the dominant quality in their lives is an abiding sense  o
 </head>
 <body>
     <center>
+        <h1 style="color:navy;font-weight:bold;">ANTEPROMPT
+        </h1>
 
-<h2> Names of chatbot and user</h2>
+<h2> Names for chatbot and user</h2>
 <p class="comment">Here you have to define the name of the chatbot and how the user will be named.</p>
 <input id="bot" value="Chatbot" onchange="fait()"/> <input id="user" value="User" onchange="fait()"/><br>
 <br/>
@@ -167,7 +169,7 @@ mbti=["ISTJ:For ISTJs the dominant quality in their lives is an abiding sense  o
 	for(s=1;s<5;s++) peuple("l"+s,ide);
 
         l=document.getElementById('mbt')
-        l.options[0]=new Option('___','')
+        l.options[0]=new Option('   ','')
         for(i=0;i<16;i++){
         l.options[i+1]= new Option(mbti[i].substring(0,4),mbti[i].substring(5))
     }
@@ -177,7 +179,8 @@ mbti=["ISTJ:For ISTJs the dominant quality in their lives is an abiding sense  o
 
 <div id='prompt' style="width:70%;test-align:left;margin: 0 auto;">
     
-    This applet generates preprompt based on personality and values of virtual agents.
+    This applet generates preprompt based on personality and values of virtual agents. More information about the way these prompts are built can be found on <a href="https://github.com/l0d0v1c/anteprompt">github.com</a>
+
 </div>
 
 </body>
