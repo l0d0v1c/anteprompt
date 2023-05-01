@@ -1,6 +1,10 @@
 # ANTEPROMPT
 Anteprompt is a web applet focused on building chatbots for LLaMA or chatGPT having a plausible personality.
 
+# ACCESS
+
+The applet demo is hosted [here](https://l0d0v1c.github.io/anteprompt/).
+
 # PERSONALITY COMPONENTS
 The chatbot is currently built from:
 
