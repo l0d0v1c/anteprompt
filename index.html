@@ -58,6 +58,28 @@ ide=['ethnicity',
  'sensuality',
  'diploma'];
 
+idas=['as white',
+ 'as christian',
+ 'as man',
+ 'as proud',
+ 'as male',
+ 'as a father',
+ 'as a rational',
+ 'as a moderate',
+ 'as an American',
+ 'as a gay man',
+ 'as the friend of',
+ 'as a painter',
+ 'as a homeless care taker',
+ 'as a scientist',
+ 'as a worker',
+ 'as a stoician',
+ 'as an cat lover',
+ 'as a surfer',
+ 'as a westerner',
+ 'as a funny man',
+ 'as a doctor'];
+
 
 
 function peuple(idlist,vlist){
@@ -77,7 +99,7 @@ function fren(w){
 	return wr
 }
 
-function fait(){
+function fait(what){
 
 	ngr=Array()
 	for(n=1;n<5;n++) if(document.getElementById('l'+n).value!='') ngr.push((document.getElementById('l'+n).value))
@@ -102,7 +124,19 @@ typical+="<USER>:"
 
 typical=typical.replaceAll('<CHATBOT>',$('#bot').val());
 typical=typical.replaceAll('<USER>',$('#user').val());
-typical=typical.replaceAll('<IDENTITY>',ngr.join(',') + " or this type of keywords " +res );
+
+identity="";
+for(i=1;i<5;i++){
+    idd=$('#l'+i).val();
+ 
+    if(idd != ''){iddd="("+$("#e"+i).val()+"),";
+    if(iddd==="(),") iddd=", "
+    identity+=idd+ iddd;}
+}
+
+
+
+typical=typical.replaceAll('<IDENTITY>',identity + " or this type of keywords " +res );
 mbtitype=$("#mbt option:selected").text();
 mbtidesc=$("#mbt").val();
 
@@ -114,6 +148,25 @@ typical=typical.replaceAll('<MBTI>',mbtitype+". "+mbtidesc);
 typical=typical.replaceAll('<SUBJECT>',$('#expert').val());
 
 $('#prompt').html(typical);
+
+
+if(['l1','l2','l3','l4'].includes($(what).attr('id'))) {
+
+    n=$("#"+$(what).attr('id')+" option:selected").text();
+    id="#"+$(what).attr('id').replace('l','e');
+    
+
+    if(n==="   "){
+        $(id).prop( "disabled", true );
+        $(id).attr("placeholder","as");
+        $(id).val('');
+
+    } else {
+        $(id).prop( "disabled", false );
+        $(id).attr("placeholder",idas[ide.indexOf(n)]);
+
+    }
+}
 
 }
 
@@ -145,22 +198,26 @@ mbti=["ISTJ:For ISTJs the dominant quality in their lives is an abiding sense  o
 
 <h2> Names for chatbot and user</h2>
 <p class="comment">Here you have to define the name of the chatbot and how the user will be named.</p>
-<input id="bot" value="Chatbot" onchange="fait()"/> <input id="user" value="User" onchange="fait()"/><br>
+<input id="bot" value="Chatbot" onchange="fait(this)"/> <input id="user" value="User" onchange="fait()"/><br>
 <br/>
 <h2> Expertise of the chatbot</h2>
 <p class="comment">Describe here the nature of the skills of the chatbot</p>
-<input id="expert" value="human interaction" onchange="fait()"/> 
+<input id="expert" value="human interaction" onchange="fait(this)"/> 
 <br/><br/>
 
 
 <h2> Identity of the chatbot</h2>
-<p class="comment">You can choose between 2 and 4 identity dimensions that are suppose to be important for the chatbot</p>
-<select name="l1" id="l1" onchange="fait()"></select><select name="l2" id="l2" onchange="fait()"></select><select name="l3" id="l3" onchange="fait()"></select><select name="l4" id="l4" onchange="fait()"></select><br>
-<br/><br/>
+<p class="comment">You can choose between 2 and 4 identity dimensions that are suppose to be important for the chatbot. You may precise the way this identity is expressed "as something"</p>
+<select name="l1" id="l1" onchange="fait(this)"></select><select name="l2" id="l2" onchange="fait(this)"></select><select name="l3" id="l3" onchange="fait(this)"></select><select name="l4" id="l4" onchange="fait(this)"></select><br>
+<br/>
+<input id="e1" disabled placeholder="as" onchange="fait(this)"/><input id="e2" disabled placeholder="as" onchange="fait(this)"/>
+<input id="e3" disabled placeholder="as" onchange="fait(this)"/> 
+<input id="e4" disabled placeholder="as" onchange="fait(this)"/>
+<br/>
 
 <h2> Personality of the chatbot </h2>
 <p class="comment">Here you have to define the MBTI profile of your chatbot.</p>
-<select name="mbt", id="mbt" onchange="fait()"></select>
+<select name="mbt", id="mbt" onchange="fait(this)"></select>
 <hr/>
 <h3>LLM prompt generator</h3>
 </center>
